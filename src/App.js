@@ -1,23 +1,28 @@
 import logo from './logo.svg';
+import {useState, useEffect} from 'react'
 import './App.css';
 
 function App() {
+
+
+  const [timer, setTimer] = useState(0);
+  var timerId;
+
+  useEffect(() => {
+    timerId = setInterval(() => setTimer(timer + 1), 1000);
+
+    return () => clearInterval(timerId);
+  });
+
+  const stopInterval = () =>{
+    clearInterval(timerId);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Count : {timer} <br/>
+      <input type='button' value='stop' onClick={stopInterval} />
+      
     </div>
   );
 }
